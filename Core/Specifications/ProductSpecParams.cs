@@ -41,6 +41,5 @@ public class ProductSpecParams
         get => _search ?? "";
         set => _search = value.ToLower();
     }
-    
 }
 
