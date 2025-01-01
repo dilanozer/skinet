@@ -5,11 +5,16 @@ import { Product } from './shared/models/product';
 import { Pagination } from './shared/models/pagination';
 import { ShopService } from './core/services/shop.service';
 import { ShopComponent } from "./features/shop/shop.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, ShopComponent],
+  imports: [
+    RouterOutlet, 
+    HeaderComponent, 
+    ShopComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
