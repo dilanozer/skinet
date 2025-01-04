@@ -3,11 +3,14 @@ export interface Order {
     orderDate: string
     buyerEmail: string
     shippingAddress: ShippingAddress
+    deliveryMethod: string
+    shippingPrice: number
     paymentSummary: PaymentSummary
     orderItems: OrderItem[]
     subtotal: number
     status: string
     total: number
+    paymentIntentId: string
 }
 
 export interface ShippingAddress {
@@ -37,6 +40,7 @@ export interface OrderItem {
 
 export interface OrderToCreate {
     cartId: string;
+    deliveryMethodId: number;
     shippingAddress: ShippingAddress;
-    paymentSummart: PaymentSummary;
+    paymentSummary: PaymentSummary;
 }
