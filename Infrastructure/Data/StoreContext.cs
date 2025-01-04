@@ -10,7 +10,7 @@ public class StoreContext(DbContextOptions options) : IdentityDbContext<AppUser>
 {
     public DbSet<Product> Products { get; set; }
     public DbSet<Address> Addresses { get; set; }
-    // public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
+    public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
 

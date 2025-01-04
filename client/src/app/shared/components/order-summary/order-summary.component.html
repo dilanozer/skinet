@@ -30,12 +30,13 @@
                 </dd>
             </dl>
         </div>
-        
-        <div class="flex flex-col gap-2">
-            <button routerLink="/checkout" mat-flat-button style="background-color: #7d00fa; color: white; border: none;">Checkout</button>
-            <button routerLink="/shop" mat-button style="background-color: white; color: #7d00fa; border: none;">Continue Shopping</button>
-        </div>
 
+        @if (location.path() !== '/checkout') {
+            <div class="flex flex-col gap-2">
+                <button routerLink="/checkout" mat-flat-button class="custom-button-right">Checkout</button>
+                <button routerLink="/shop" mat-button class="custom-button-left">Continue Shopping</button>
+            </div>
+        }
     </div>
 
     <div class="space-y-4 rounded-lg border border-gray-200 bg-white shadow-sm">
@@ -48,7 +49,7 @@
                 <input type="text" matInput>
             </mat-form-field>
 
-            <button mat-flat-button style="background-color: #7d00fa; color: white; border: none;">Apply code</button>
+            <button mat-flat-button class="custom-button-right">Apply code</button>
         </form>
     </div>
 </div>
