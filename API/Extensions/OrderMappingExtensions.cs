@@ -14,13 +14,13 @@ public static class OrderMappingExtensions
             OrderDate = order.OrderDate,
             ShippingAddress = order.ShippingAddress,
             PaymentSummary = order.PaymentSummary,
-            // DeliveryMethod = order.DeliveryMethod.Description,
-            // ShippingPrice = order.DeliveryMethod.Price,
+            DeliveryMethod = order.DeliveryMethod.Description,
+            ShippingPrice = order.DeliveryMethod.Price,
             OrderItems = order.OrderItems.Select(x => x.ToDto()).ToList(),
             Subtotal = order.Subtotal,
             Total = order.GetTotal(),
             Status = order.Status.ToString(),
-            // PaymentIntentId = order.PaymentIntentId
+            PaymentIntentId = order.PaymentIntentId
         };
     }
 

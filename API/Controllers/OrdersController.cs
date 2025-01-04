@@ -13,7 +13,7 @@ namespace API.Controllers
     public class OrdersController(ICartService cartService, IUnitOfWork unit) : BaseApiController
     {
         [HttpPost]
-        public async Task<ActionResult<Order>> CreateOrder(CreateOrderDto orderDto) 
+        public async Task<ActionResult<Order>> CreateOrder(CreateOrderDto orderDto)
         {
             var email = User.GetEmail();
 
@@ -21,7 +21,7 @@ namespace API.Controllers
 
             if (cart == null) return BadRequest("Cart not found");
 
-            // if (cart.PaymentIntentId == null) return BadRequest("No payment intent for this order");
+            if (cart.PaymentIntentId == null) return BadRequest("No payment intent for this order");
 
             var items = new List<OrderItem>();
 
@@ -30,15 +30,15 @@ namespace API.Controllers
                 var productItem = await unit.Repository<Product>().GetByIdAsync(item.ProductId);
 
                 if (productItem == null) return BadRequest("Problem with the order");
-                
-                var itemOrdered = new ProductItemOrdered 
+
+                var itemOrdered = new ProductItemOrdered
                 {
                     ProductId = item.ProductId,
                     ProductName = item.ProductName,
                     PictureUrl = item.PictureUrl
                 };
 
-                var orderItem = new OrderItem 
+                var orderItem = new OrderItem
                 {
                     ItemOrdered = itemOrdered,
                     Price = productItem.Price,
@@ -47,18 +47,18 @@ namespace API.Controllers
                 items.Add(orderItem);
             }
 
-            // var deliveryMethod = await unit.Repository<DeliveryMethod>().GetByIdAsync(orderDto.DeliveryMethodId);
+            var deliveryMethod = await unit.Repository<DeliveryMethod>().GetByIdAsync(orderDto.DeliveryMethodId);
 
-            // if (deliveryMethod == null) return BadRequest("No delivery method selected");
+            if (deliveryMethod == null) return BadRequest("No delivery method selected");
 
-            var order = new Order 
+            var order = new Order
             {
                 OrderItems = items,
-                // DeliveryMethod = deliveryMethod,
+                DeliveryMethod = deliveryMethod,
                 ShippingAddress = orderDto.ShippingAddress,
                 Subtotal = items.Sum(x => x.Price * x.Quantity),
                 PaymentSummary = orderDto.PaymentSummary,
-                // PaymentIntentId = cart.PaymentIntentId,
+                PaymentIntentId = cart.PaymentIntentId,
                 BuyerEmail = email
             };
 
@@ -73,7 +73,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser() 
+        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser()
         {
             var spec = new OrderSpecification(User.GetEmail());
 
@@ -85,14 +85,14 @@ namespace API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<OrderDto>> GetOrderById(int id) 
+        public async Task<ActionResult<OrderDto>> GetOrderById(int id)
         {
             var spec = new OrderSpecification(User.GetEmail(), id);
 
             var order = await unit.Repository<Order>().GetEntityWithSpec(spec);
 
             if (order == null) return NotFound();
-            
+
             return order.ToDto();
         }
     }
