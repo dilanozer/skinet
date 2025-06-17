@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .my-container {
-  @apply mx-auto max-w-screen-2xl px-6 mt-6; /* max-w-screen-2xl burada sorun çıkarır */
+  @apply mx-auto max-w-screen-2xl px-6 mt-24; /* max-w-screen-2xl burada sorun çıkarır */
 }
 
 .text-primary {
@@ -16,4 +16,16 @@ button.match-input-height {
 
 .mdc-notched-outline__notch {
   border-right-style: none !important;
+}
+
+.mat-mdc-snack-bar-container.snack-error {
+  --mdc-snackbar-container-color: red;
+  --mat-snack-bar-button-color: white;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.mat-mdc-snack-bar-container.snack-success {
+  --mdc-snackbar-container-color: green;
+  --mat-snack-bar-button-color: white;
+  --mdc-snackbar-supporting-text-color: white;
 }
