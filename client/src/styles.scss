@@ -5,3 +5,11 @@
 .my-container {
   @apply mx-auto max-w-screen-2xl px-6 mt-6; /* max-w-screen-2xl burada sorun çıkarır */
 }
+
+.text-primary {
+  color: rgb(63, 81, 181)
+} 
+
+button.match-input-height {
+  height: var(--mat-form-field-container-height) !important;
+}
