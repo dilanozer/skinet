@@ -10,3 +10,9 @@
     width: 32px;
     height: 32px;
 }
+
+a {
+    &.active {
+        color: rgb(63, 81, 181)
+    }
+}
