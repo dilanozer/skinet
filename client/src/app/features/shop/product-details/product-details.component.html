@@ -18,6 +18,7 @@
                     <div class="flex gap-4 mt-6">
                         <button 
                             [disabled]="quantity === quantityInCart"
+                            class="button-color"
                             (click)="updateCart()" 
                             mat-flat-button class="match-input-height">
                                 <mat-icon>shopping_cart</mat-icon>

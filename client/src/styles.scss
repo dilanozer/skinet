@@ -29,3 +29,15 @@ button.match-input-height {
   --mat-snack-bar-button-color: white;
   --mdc-snackbar-supporting-text-color: white;
 }
+
+.button-color {
+  background-color: #3F51B5 !important;
+  color: white !important;
+}
+
+.button-disabled-color {
+  background-color: #9FA8DA !important; 
+  color: white !important;
+  opacity: 0.6; 
+  cursor: not-allowed;
+}
