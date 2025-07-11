@@ -63,7 +63,8 @@ namespace API.Controllers
                 Subtotal = items.Sum(x => x.Price * x.Quantity),
                 PaymentSummary = orderDto.PaymentSummary,
                 PaymentIntentId = cart.PaymentIntentId,
-                BuyerEmail = email
+                BuyerEmail = email,
+                Discount = orderDto.Discount,
             };
 
             // save to database

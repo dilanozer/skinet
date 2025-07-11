@@ -22,11 +22,11 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("{cartId}")]
-        public async Task<ActionResult<ShoppingCart>> CreateOrUpdatePaymentIntent(string cartId)
+        public async Task<ActionResult> CreateOrUpdatePaymentIntent(string cartId)
         {
             var cart = await paymentService.CreateOrUpdatePaymentIntent(cartId);
 
-            if (cart == null) return BadRequest("Problem with your cart");
+            if (cart == null) return BadRequest("Problem with your cart on the API");
 
             return Ok(cart);
         }
@@ -76,7 +76,12 @@ namespace API.Controllers
                 var order = await unit.Repository<Order>().GetEntityWithSpec(spec)
                     ?? throw new Exception("Order not found");
 
-                if ((long)order.GetTotal() * 100 != intent.Amount)
+                var orderTotalInCents = (long)Math.Round(order.GetTotal() * 100m, MidpointRounding.AwayFromZero);
+
+                Console.WriteLine("1: " + orderTotalInCents);
+                Console.WriteLine("2: " + intent.Amount);
+                
+                if (Math.Abs(orderTotalInCents - intent.Amount) > 5)  
                 {
                     order.Status = OrderStatus.PaymentMismatch;
                 }
@@ -84,6 +89,15 @@ namespace API.Controllers
                 {
                     order.Status = OrderStatus.PaymentReceived;
                 }
+
+                // if (orderTotalInCents != intent.Amount)
+                // {
+                //     order.Status = OrderStatus.PaymentMismatch;
+                // }
+                // else
+                // {
+                //     order.Status = OrderStatus.PaymentReceived;
+                // }
 
                 await unit.Complete();
 
